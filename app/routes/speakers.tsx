@@ -1,6 +1,6 @@
 import React from "react";
-import JoinUs from "_app/components/JoinUs";
-import Speakers from "_app/components/Speakers";
+import JoinUs from "../components/JoinUs";
+import Speakers from "../components/Speakers";
 
 export default function Page() {
 	return (

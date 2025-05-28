@@ -1,5 +1,5 @@
 import React from "react";
-import { host, speakers } from "_app/store";
+import { host, speakers } from "~/store";
 import JoinUs from "./JoinUs";
 
 export default function Speakers() {

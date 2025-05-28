@@ -1,138 +1,307 @@
+/* eslint-disable react/no-unescaped-entities */
 import type { MetaFunction } from "@remix-run/node";
+import { Link } from "@remix-run/react";
+import JoinUs from "../components/JoinUs";
+import Speakers from "../components/Speakers";
+import Time from "../components/Time";
+import { about_cards, contacts, speakers, host } from "../store";
 
 export const meta: MetaFunction = () => {
-  return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
-  ];
+	return [
+		{ title: "SICT'3RD SYMPOSIUM" },
+		{ name: "description", content: "Welcome to Remix!" },
+	];
 };
 
 export default function Index() {
-  return (
-    <div className="flex h-screen items-center justify-center">
-      <div className="flex flex-col items-center gap-16">
-        <header className="flex flex-col items-center gap-9">
-          <h1 className="leading text-2xl font-bold text-gray-800 dark:text-gray-100">
-            Welcome to <span className="sr-only">Remix</span>
-          </h1>
-          <div className="h-[144px] w-[434px]">
-            <img
-              src="/logo-light.png"
-              alt="Remix"
-              className="block w-full dark:hidden"
-            />
-            <img
-              src="/logo-dark.png"
-              alt="Remix"
-              className="hidden w-full dark:block"
-            />
-          </div>
-        </header>
-        <nav className="flex flex-col items-center justify-center gap-4 rounded-3xl border border-gray-200 p-6 dark:border-gray-700">
-          <p className="leading-6 text-gray-700 dark:text-gray-200">
-            What&apos;s next?
-          </p>
-          <ul>
-            {resources.map(({ href, text, icon }) => (
-              <li key={href}>
-                <a
-                  className="group flex items-center gap-3 self-stretch p-3 leading-normal text-blue-700 hover:underline dark:text-blue-500"
-                  href={href}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {icon}
-                  {text}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
-    </div>
-  );
-}
+	// console.log("client side");
 
-const resources = [
-  {
-    href: "https://remix.run/start/quickstart",
-    text: "Quick Start (5 min)",
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="20"
-        viewBox="0 0 20 20"
-        fill="none"
-        className="stroke-gray-600 group-hover:stroke-current dark:stroke-gray-300"
-      >
-        <path
-          d="M8.51851 12.0741L7.92592 18L15.6296 9.7037L11.4815 7.33333L12.0741 2L4.37036 10.2963L8.51851 12.0741Z"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
-  },
-  {
-    href: "https://remix.run/start/tutorial",
-    text: "Tutorial (30 min)",
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="20"
-        viewBox="0 0 20 20"
-        fill="none"
-        className="stroke-gray-600 group-hover:stroke-current dark:stroke-gray-300"
-      >
-        <path
-          d="M4.561 12.749L3.15503 14.1549M3.00811 8.99944H1.01978M3.15503 3.84489L4.561 5.2508M8.3107 1.70923L8.3107 3.69749M13.4655 3.84489L12.0595 5.2508M18.1868 17.0974L16.635 18.6491C16.4636 18.8205 16.1858 18.8205 16.0144 18.6491L13.568 16.2028C13.383 16.0178 13.0784 16.0347 12.915 16.239L11.2697 18.2956C11.047 18.5739 10.6029 18.4847 10.505 18.142L7.85215 8.85711C7.75756 8.52603 8.06365 8.21994 8.39472 8.31453L17.6796 10.9673C18.0223 11.0653 18.1115 11.5094 17.8332 11.7321L15.7766 13.3773C15.5723 13.5408 15.5554 13.8454 15.7404 14.0304L18.1868 16.4767C18.3582 16.6481 18.3582 16.926 18.1868 17.0974Z"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
-  },
-  {
-    href: "https://remix.run/docs",
-    text: "Remix Docs",
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="20"
-        viewBox="0 0 20 20"
-        fill="none"
-        className="stroke-gray-600 group-hover:stroke-current dark:stroke-gray-300"
-      >
-        <path
-          d="M9.99981 10.0751V9.99992M17.4688 17.4688C15.889 19.0485 11.2645 16.9853 7.13958 12.8604C3.01467 8.73546 0.951405 4.11091 2.53116 2.53116C4.11091 0.951405 8.73546 3.01467 12.8604 7.13958C16.9853 11.2645 19.0485 15.889 17.4688 17.4688ZM2.53132 17.4688C0.951566 15.8891 3.01483 11.2645 7.13974 7.13963C11.2647 3.01471 15.8892 0.951453 17.469 2.53121C19.0487 4.11096 16.9854 8.73551 12.8605 12.8604C8.73562 16.9853 4.11107 19.0486 2.53132 17.4688Z"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
-  },
-  {
-    href: "https://rmx.as/discord",
-    text: "Join Discord",
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="20"
-        viewBox="0 0 24 20"
-        fill="none"
-        className="stroke-gray-600 group-hover:stroke-current dark:stroke-gray-300"
-      >
-        <path
-          d="M15.0686 1.25995L14.5477 1.17423L14.2913 1.63578C14.1754 1.84439 14.0545 2.08275 13.9422 2.31963C12.6461 2.16488 11.3406 2.16505 10.0445 2.32014C9.92822 2.08178 9.80478 1.84975 9.67412 1.62413L9.41449 1.17584L8.90333 1.25995C7.33547 1.51794 5.80717 1.99419 4.37748 2.66939L4.19 2.75793L4.07461 2.93019C1.23864 7.16437 0.46302 11.3053 0.838165 15.3924L0.868838 15.7266L1.13844 15.9264C2.81818 17.1714 4.68053 18.1233 6.68582 18.719L7.18892 18.8684L7.50166 18.4469C7.96179 17.8268 8.36504 17.1824 8.709 16.4944L8.71099 16.4904C10.8645 17.0471 13.128 17.0485 15.2821 16.4947C15.6261 17.1826 16.0293 17.8269 16.4892 18.4469L16.805 18.8725L17.3116 18.717C19.3056 18.105 21.1876 17.1751 22.8559 15.9238L23.1224 15.724L23.1528 15.3923C23.5873 10.6524 22.3579 6.53306 19.8947 2.90714L19.7759 2.73227L19.5833 2.64518C18.1437 1.99439 16.6386 1.51826 15.0686 1.25995ZM16.6074 10.7755L16.6074 10.7756C16.5934 11.6409 16.0212 12.1444 15.4783 12.1444C14.9297 12.1444 14.3493 11.6173 14.3493 10.7877C14.3493 9.94885 14.9378 9.41192 15.4783 9.41192C16.0471 9.41192 16.6209 9.93851 16.6074 10.7755ZM8.49373 12.1444C7.94513 12.1444 7.36471 11.6173 7.36471 10.7877C7.36471 9.94885 7.95323 9.41192 8.49373 9.41192C9.06038 9.41192 9.63892 9.93712 9.6417 10.7815C9.62517 11.6239 9.05462 12.1444 8.49373 12.1444Z"
-          strokeWidth="1.5"
-        />
-      </svg>
-    ),
-  },
-];
+	return (
+		<main className="items-center justify-center">
+			<section className="mt-0 pt-10">
+				<span className="time-card" style={{ marginInline: "auto" }}>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						strokeWidth="1.5"
+						stroke="currentColor"
+						className="w-6 h-6 icon"
+					>
+						<path
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z"
+						/>
+					</svg>
+					<Time />
+				</span>
+				<h1
+					className="text-center mt-10 text-5xl mb-10"
+					style={{
+						lineHeight: "normal",
+						textTransform: "none",
+					}}
+				>
+					Web Design <span>Workshop</span>
+				</h1>
+				<p className="text text-center mb-3">
+					Join our immersive workshop and transform your ideas
+					<br className="hidden md:block" />
+					into stunning digital realities.
+				</p>
+				<a href="https://futo.edu.ng" className="mt-5">
+					<p className="text-center text-sm text-blue-400 underline">
+						Visit our FUTO Official website
+					</p>
+				</a>
+				<div className="flex justify-center mt-5">
+					<Link to="/register" className="primary-btn btn">
+						Register Now
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 24 24"
+							strokeWidth="1.5"
+							stroke="currentColor"
+							className="w-6 h-6 "
+							style={{ width: 15 }}
+						>
+							<path
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+							/>
+						</svg>
+					</Link>
+				</div>
+			</section>
+			<section className="hero">
+				<img
+					src="hero-picture.jpg"
+					className="h-[60vh] object-cover"
+					alt="Speaker addressing audience"
+				/>
+			</section>
+			<section className="about mb-20">
+				<h2 className="title text-center md:text-start">
+					Why you should attend
+				</h2>
+				<div className="cards items-start">
+					{about_cards.map(({ text, title, icon }, i) => (
+						<div key={i} className="card mb-10 md:mb-0">
+							<img src={icon} alt="speech bubble with a question" width={80} />
+							<p className="card-title">{title}</p>
+							<p className="text card-text text-center">{text}</p>
+						</div>
+					))}
+				</div>
+			</section>
+
+			<Speakers />
+
+			<section className="flyer">
+				<div style={{ flex: 1 }} className="text-center md:text-start">
+					<h2
+						className="title"
+						style={{ fontSize: 30, marginInline: 0, marginTop: 0 }}
+					>
+						Let's explore the cutting-edge <br className="hidden md:block" />
+						innovations and trends
+					</h2>
+					<p className="text md:pe-10">
+						You're invited to join us at the Web Design Workshop, where we'll
+						dive into the latest in web design and development. Held at Cyber
+						Security Research Center, FUTO, on May 22nd, 2024. This event
+						guarantees an enriching experience. Expect vibrant discussions,
+						hands-on workshops, and valuable networking.
+					</p>
+				</div>
+				<div style={{ flex: 1, cursor: "pointer" }} className="mt-8 md:mt-0">
+					<a href="/langing_page_images/flyer.png" target="_blank">
+						<img
+							src="/langing_page_images/flyer.png"
+							style={{ width: "80%" }}
+							alt="flyer"
+						/>
+					</a>
+				</div>
+			</section>
+
+			<section className="support" style={{ marginTop: 100 }}>
+				<div style={{ flex: 1 }} className="mb-8 md:mb-0">
+					<div className="map-wrapper" style={{ width: "100%" }}>
+						<div
+							style={{
+								overflow: "hidden",
+								resize: "none",
+								maxWidth: "100%",
+								width: "100%",
+								height: 350,
+								borderRadius: 10,
+							}}
+						>
+							<div
+								id="gmap-canvas"
+								style={{ height: "100%", width: "100%", maxWidth: "100%" }}
+							>
+								<iframe
+									src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d2492.7301746346743!2d6.98836017006205!3d5.382003831553759!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1730822659275!5m2!1sen!2sus"
+									style={{ height: "100%", width: "100%", border: 0 }}
+									loading="lazy"
+								/>
+							</div>
+							<style
+								dangerouslySetInnerHTML={{
+									__html:
+										"\n#gmap-canvas img {\n  max-height: none;\n  max-width: none !important;\n  background: none !important;\n}\n            ",
+								}}
+							/>
+						</div>
+					</div>
+				</div>
+
+				<div
+					style={{ flex: 1, display: "flex", gap: 40, flexDirection: "column" }}
+				>
+					<div>
+						<h2
+							className="title text-center md:text-start"
+							style={{ fontSize: 30, marginTop: 0 }}
+						>
+							For support &amp; enquries
+						</h2>
+						<p className="text text-center md:text-start md:pe-10">
+							The Web Design Workshop invites you to embark on a journey into
+							the future of digital design. From the integration of cutting-edge
+							design tools to mastering the latest web development techniques.
+						</p>
+						<p
+							className="time-card-wrapper-flex"
+							style={{ gap: 15, marginTop: 20 }}
+						>
+							<span className="time-card">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									strokeWidth="1.5"
+									stroke="currentColor"
+									className="w-6 h-6 icon"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z"
+									/>
+								</svg>
+								<Time />
+							</span>
+							<span className="time-card">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									strokeWidth="1.5"
+									stroke="currentColor"
+									className="w-6 h-6 icon"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+									/>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
+									/>
+								</svg>
+								<span className="text-xs">
+									Cyber Security Research Center, FUTO
+								</span>
+							</span>
+						</p>
+					</div>
+
+					<div style={{ justifyItems: "end" }} className="space-y-4">
+						{contacts.slice().map(({ name, title, id }) => (
+							<div
+								key={id}
+								className="contacts flex flex-row flex-wrap justify-between w-full"
+							>
+								<div className="flex items-center justify-between flex-row">
+									<div
+										style={{
+											width: 40,
+											height: 40,
+											backgroundColor: "var(--stroke)",
+											borderRadius: "50%",
+										}}
+									>
+										<img src="/support.png" alt="" />
+									</div>
+									<div style={{ marginInlineStart: 20 }}>
+										<p
+											style={{
+												fontSize: "medium",
+												marginBottom: 10,
+												color: "var(--dark-blue)",
+											}}
+										>
+											{name}
+										</p>
+										<p
+											style={{ fontSize: "x-small", color: "var(--dark-blue)" }}
+										>
+											{title}
+										</p>
+									</div>
+								</div>
+								<div
+									style={{ display: "flex", justifyContent: "start", gap: 30 }}
+								>
+									{/* phone */}
+									<Link
+										to={`tel:${title}`}
+										className="icon-span"
+										style={{ backgroundColor: "var(--light-blue-2)" }}
+									>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 24 24"
+											fill="currentColor"
+											className="w-6 h-6 icon"
+										>
+											<path
+												fillRule="evenodd"
+												d="M1.5 4.5a3 3 0 0 1 3-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 0 1-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 0 0 6.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 0 1 1.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 0 1-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5Z"
+												clipRule="evenodd"
+											/>
+										</svg>
+									</Link>
+									{/* message */}
+									<span
+										className="icon-span"
+										style={{ backgroundColor: "var(--light-blue-2)" }}
+									>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 24 24"
+											fill="currentColor"
+											className="w-6 h-6 icon"
+										>
+											<path d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z" />
+											<path d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z" />
+										</svg>
+									</span>
+								</div>
+							</div>
+						))}
+					</div>
+				</div>
+			</section>
+			<JoinUs />
+		</main>
+	);
+}

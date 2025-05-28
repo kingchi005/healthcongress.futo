@@ -1,8 +1,6 @@
 import pino from "pino";
-import { NextFunction, Request, Response, Router } from "express";
 import mysql from "mysql2/promise";
 import { configDotenv } from "dotenv";
-import { s } from "node_modules/vite/dist/node/types.d-aGj9QkWt";
 configDotenv();
 
 export const Logger = pino({
@@ -11,7 +9,7 @@ export const Logger = pino({
 		options: { translateTime: "SYS:dd-mm-yy hh:mm:ss" },
 	},
 });
-
+/* 
 export class AppResponse {
 	public static success<D = unknown>(
 		res: Response,
@@ -39,7 +37,7 @@ export class AppResponse {
 		});
 	}
 }
-
+ */
 export const STATUS_CODE = {
 	OK: 200,
 	CREATED: 201,

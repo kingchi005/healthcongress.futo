@@ -17,7 +17,7 @@ export default function Header() {
 					<Link to={"/speakers"}>Speakers</Link>
 					{/* <Link to={"/schedule"}>Schedule</Link> */}
 					<Link to={"/register"}>Registeration</Link>
-					{/* <Link to={"/contactus"}>Contact Us</Link> */}
+					<Link to={"/contactus"}>Contact Us</Link>
 				</nav>
 				<Link to={"/register"} className="nav-btn">
 					Register Now{" "}

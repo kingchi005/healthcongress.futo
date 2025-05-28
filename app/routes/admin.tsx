@@ -1,9 +1,8 @@
 import { json, useLoaderData, useRouteLoaderData } from "@remix-run/react";
 import React from "react";
-import { Logger } from "_app/api/config";
-import { User } from "_app/api/model";
-import { useAuth } from "_app/store";
 import { toast } from "sonner";
+import { User } from "~/.server/model";
+import { useAuth } from "~/store";
 
 export default function Page() {
 	const authenticated = useAuth((st) => st.authed);
@@ -31,7 +30,7 @@ function Login() {
 		setIsLoading(false);
 
 		if (!res.ok) return toast.error(res.message, { style: { color: "red" } });
-		toast.success(res.message, { style: { color: "green" } });
+		toast.success(res.message, { style: { color: "blue" } });
 		authenticateAdmin();
 	}
 	return (

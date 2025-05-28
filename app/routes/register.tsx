@@ -1,7 +1,7 @@
 import { useNavigate } from "@remix-run/react";
 import React from "react";
 import { toast } from "sonner";
-import Time from "_app/components/Time";
+import Time from "../components/Time";
 
 const FACULTY = {
 	SICT: ["IFT", "CSC", "CYB", "SOE"],
@@ -33,7 +33,7 @@ export default function Page() {
 		setIsLoading(false);
 
 		if (!res.ok) return toast.error(res.message, { style: { color: "red" } });
-		toast.success(res.message, { style: { color: "green" } });
+		toast.success(res.message, { style: { color: "blue" } });
 
 		navigate("/");
 	}
