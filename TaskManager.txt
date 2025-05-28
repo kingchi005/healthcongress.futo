@@ -1,0 +1,28 @@
+Development tool
+
+- Laptop
+- IDE
+
+Software
+
+- Nodejs - npm
+- Vite (optional)
+- PostgreSQL (Postgresql server) | mySQL (XAMP) | mongodb
+
+Frontend
+
+- HTML
+- CSS
+- JavaScript
+
+Backend
+
+- Express
+- Sequelise
+
+middleware
+(error,request,response,next)=>{}
+
+JWT (Json Web Token)
+hashing
+
