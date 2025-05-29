@@ -28,77 +28,69 @@ export const useAuth = create<AuthStore>()(
 export const about_cards = [
 	{
 		icon: "group-of-people-laptop.jpeg",
-		title: "Network and Collaborate",
-		text: "Meet like-minded designers and developers, build valuable relationships and collaborate on exciting projects and share knowledge.",
+		title: "Innovative Solutions",
+		text: "Discuss innovative indigenous technologies for health promotion and Health Management in Nigeria and other developing countries.",
 	},
 	{
 		icon: "job-promo.png",
-		title: "Advance Your Career",
-		text: "Acquire in-demand skills, build a strong portfolio and prepare for a successful career in web design.",
+		title: "Expert Knowledge",
+		text: "Learn from academics, scientists, policy makers, and industrialists about addressing emerging health concerns through indigenous knowledge.",
 	},
 	{
 		icon: "time-management.jpg",
-		title: "Maximizing Your Time",
-		text: "With a carefully curated agenda and a focus on efficiency, we ensure that you get the most out of your time with us",
+		title: "Networking Opportunity",
+		text: "Connect with stakeholders in health sciences, technology and industry for potential collaborations and partnerships.",
 	},
 ];
 
 export const contacts = [
 	{
 		id: 1,
-		name: "Ihekwoba Success C.",
-		title: "08137095749",
-		photo: "dr-amadi.jpg",
+		name: "Dr. A. U. Megwas",
+		title: "+234 8175074719",
+		photo: "avatar.png",
 	},
 	{
 		id: 0,
-		name: "Enemuor Chidubem Mmaduka",
-		title: "09034075099",
-		photo: "dr-ayogu.jpg",
+		name: "Congress Secretariat",
+		title: "+234 8065687571",
+		photo: "avatar.png",
 	},
 ];
 
 export const speakers = [
-	// {
-	// 	photo: "Kingchi-photo.jpg",
-	// 	name: "Mr. KingDavid C. Ezennwa",
-	// 	title: "CE-sPESS Intern (Full stack Web developer)",
-	// },
-	// // { photo: "dr-mbonu.jpg", name: "Dr. Ekene Mbonu", title: "(MCE/SESET FUTO)" },
-	// // {
-	// // 	photo: "dr-ayogu.jpg",
-	// // 	name: "Dr. Ayogu Ikechukwu",
-	// // 	title: "(CSC/SICT FUTO)",
-	// // },
-	// {
-	// 	photo: "mrs-chinwe.jpg",
-	// 	name: "Mrs. Chinwe Ezirim",
-	// 	title: "(MD Kuch-99 Agriculture and Seeds Limited)",
-	// },
+	{
+		photo: "avatar.png",
+		name: "Prof. Emmanuel C. Opara",
+		title:
+			"Professor of Regenerative Medicine, Wake Forest University School of Medicine, Winston-Salem, North Carolina, United States",
+	},
+	{
+		photo: "avatar.png",
+		name: "Prof. B. E. B. Nwoke",
+		title:
+			"Professor of Public Health, Parasitology and Entomology, Imo State University, Nigeria",
+	},
+	{
+		photo: "avatar.png",
+		name: "Prof. John Emaimo",
+		title:
+			"Professor of Social Work Rector, Federal College of Dental Technology and Therapy, Enugu, Nigeria",
+	},
 ];
 
 export const host = [
 	{
 		photo: "dean-sict.jpg",
-		name: "Prof. U.F. Eze",
-		title: "Dean SICT (Host)",
-	},
-	{
-		photo: "cyb-hod.jpg",
-		name: "Prof. Onojo Ondoma",
-		title: "HOD CYB (Co-host)",
-	},
-	{
-		photo: "dr-amadi.jpg",
-		name: "Engr. Dr. E. C. Amadi",
-		title: "Leturer IFT (Organizer)",
+		name: "School of Health Technology",
+		title: "Federal University of Technology, Owerri",
 	},
 ];
 
 export const guest = [
 	{
 		photo: "prof-gloria.jpg",
-		name: "Prof.Gloria Chukwudebe",
-		title: "Immediately past Dean SICT/Director CE-sPESS",
+		name: "Dr. A. U. Megwas",
+		title: "LOC Chairman, Dept. of Optometry",
 	},
 ];

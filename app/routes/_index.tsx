@@ -17,73 +17,75 @@ export default function Index() {
 	// console.log("client side");
 
 	return (
-		<main className="items-center justify-center">
-			<section className="mt-0 pt-10">
-				<span className="time-card" style={{ marginInline: "auto" }}>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						fill="none"
-						viewBox="0 0 24 24"
-						strokeWidth="1.5"
-						stroke="currentColor"
-						className="w-6 h-6 icon"
-					>
-						<path
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z"
-						/>
-					</svg>
-					<Time />
-				</span>
-				<h1
-					className="text-center mt-10 text-5xl mb-10"
-					style={{
-						lineHeight: "normal",
-						textTransform: "none",
-					}}
-				>
-					Web Design <span>Workshop</span>
-				</h1>
-				<p className="text text-center mb-3">
-					Join our immersive workshop and transform your ideas
-					<br className="hidden md:block" />
-					into stunning digital realities.
-				</p>
-				<a href="https://futo.edu.ng" className="mt-5">
-					<p className="text-center text-sm text-blue-400 underline">
-						Visit our FUTO Official website
-					</p>
-				</a>
-				<div className="flex justify-center mt-5">
-					<Link to="/register" className="primary-btn btn">
-						Register Now
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 24 24"
-							strokeWidth="1.5"
-							stroke="currentColor"
-							className="w-6 h-6 "
-							style={{ width: 15 }}
+		<div className="items-center justify-center">
+			<section
+				className="mt-0 py-10 relative min-h-[80vh] flex items-center justify-center bg-cover bg-center bg-no-repeat"
+				style={{
+					backgroundImage:
+						"linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url('/hero-image.jpg')",
+				}}
+			>
+				<div className="mx-auto px-4 md:px-8 lg:px-16">
+					<div className="text-center md:text-left max-w-3xl md:ml-0 mx-auto">
+						<h1
+							className="text-center md:text-left mt-10 text-5xl md:text-6xl mb-10 font-bold"
+							style={{
+								lineHeight: "normal",
+								textTransform: "none",
+							}}
 						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-							/>
-						</svg>
-					</Link>
+							<span className="text-blue-100">5th International Congress </span>
+							<span className="text-blue-400">
+								on Health Sciences and Technology
+							</span>
+						</h1>
+						<p className="text text-center md:text-left mb-3 text-lg md:text-xl">
+							<span className="text-neutral-100">
+								LEVERAGING INDIGENOUS TECHNOLOGIES IN COMBATING EMERGING HEALTH
+								ISSUES
+							</span>
+							<br className="hidden md:block" />
+							<span className="text-neutral-100">IN A CHALLENGING ECONOMY</span>
+						</p>
+						<a href="https://futo.edu.ng" className="mt-5 inline-block">
+							<p className="text-center md:text-left text-sm text-blue-400 underline hover:text-blue-300 transition-colors">
+								Federal University of Technology, Owerri
+							</p>
+						</a>
+						<div className="flex justify-center md:justify-start mt-8">
+							<Link
+								to="/register"
+								className="primary-btn btn flex gap-3 items-center bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg transition-all transform hover:scale-105"
+							>
+								Register Now
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									strokeWidth="1.5"
+									stroke="currentColor"
+									className="w-6 h-6"
+									style={{ width: 20 }}
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+									/>
+								</svg>
+							</Link>
+						</div>
+					</div>
 				</div>
 			</section>
-			<section className="hero">
+			{/* <section className="hero">
 				<img
 					src="hero-picture.jpg"
 					className="h-[60vh] object-cover"
-					alt="Speaker addressing audience"
+					alt="Congress venue"
 				/>
-			</section>
-			<section className="about mb-20">
+			</section> */}
+			<section className="about mb-20 px-5">
 				<h2 className="title text-center md:text-start">
 					Why you should attend
 				</h2>
@@ -100,21 +102,28 @@ export default function Index() {
 
 			<Speakers />
 
-			<section className="flyer">
+			<section className="flyer px-5">
 				<div style={{ flex: 1 }} className="text-center md:text-start">
 					<h2
 						className="title"
 						style={{ fontSize: 30, marginInline: 0, marginTop: 0 }}
 					>
-						Let's explore the cutting-edge <br className="hidden md:block" />
-						innovations and trends
+						The Congress
 					</h2>
+					<p className="text md:pe-10 mb-3">
+						In recent times, the burden of disease outbreak in developing
+						countries is high. Most of the technologies developed and deployed
+						tend not to specifically address the health problems in developing
+						countries. However, developing countries are beginning to undertake
+						innovative approaches to create simple and cost effective indigenous
+						technologies to address their fundamental health problems.
+					</p>
 					<p className="text md:pe-10">
-						You're invited to join us at the Web Design Workshop, where we'll
-						dive into the latest in web design and development. Held at Cyber
-						Security Research Center, FUTO, on May 22nd, 2024. This event
-						guarantees an enriching experience. Expect vibrant discussions,
-						hands-on workshops, and valuable networking.
+						The 5th international congress on Health Sciences and Technology
+						therefore provides the platform for academics, scientists, policy
+						makers, industrialists and other stakeholders to discuss innovative
+						indigenous technologies for health promotion and Health Management
+						in Nigeria and other developing countries.
 					</p>
 				</div>
 				<div style={{ flex: 1, cursor: "pointer" }} className="mt-8 md:mt-0">
@@ -122,13 +131,13 @@ export default function Index() {
 						<img
 							src="/langing_page_images/flyer.png"
 							style={{ width: "80%" }}
-							alt="flyer"
+							alt="Congress flyer"
 						/>
 					</a>
 				</div>
 			</section>
 
-			<section className="support" style={{ marginTop: 100 }}>
+			<section className="support px-5" style={{ marginTop: 100 }}>
 				<div style={{ flex: 1 }} className="mb-8 md:mb-0">
 					<div className="map-wrapper" style={{ width: "100%" }}>
 						<div
@@ -169,7 +178,7 @@ export default function Index() {
 							className="title text-center md:text-start"
 							style={{ fontSize: 30, marginTop: 0 }}
 						>
-							For support &amp; enquries
+							For enquries
 						</h2>
 						<p className="text text-center md:text-start md:pe-10">
 							The Web Design Workshop invites you to embark on a journey into
@@ -302,6 +311,6 @@ export default function Index() {
 				</div>
 			</section>
 			<JoinUs />
-		</main>
+		</div>
 	);
 }

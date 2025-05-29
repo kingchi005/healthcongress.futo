@@ -4,32 +4,18 @@ import JoinUs from "./JoinUs";
 
 export default function Speakers() {
 	return (
-		<div className="">
+		<div className="px-5">
 			<h2 className="text-[color:var(--dark-blue)] text-4xl text-center font-light leading-[normal] capitalize mb-14">
-				Meet Our Speakers{" "}
+				Keynote Speakers
 			</h2>
-			<div className="speakers-row  flex-wrap md:flex-nowrap justify-center md:justify-between">
+			<div className="speakers-row flex-wrap md:flex-nowrap justify-center md:justify-between">
 				{speakers.map((speaker, i) => (
 					<SpeakerCard key={i} {...speaker} />
 				))}
 			</div>
-			<div className="my-10">
-				<h2 className="text-[color:var(--dark-blue)] text-4xl text-center font-light leading-[normal] capitalize mb-14">
-					Special Guest{" "}
-				</h2>
-				<div className="flex justify-center">
-					<SpeakerCard
-						{...{
-							name: "Mrs. Goodness Abarugo",
-							title: "Senior web developer @Cresponet Technologies",
-							photo: "abarugo.jpg",
-						}}
-					/>
-				</div>
-			</div>
 			<div className="mb-20"></div>
 			<h2 className="text-[color:var(--dark-blue)] text-4xl text-center font-light leading-[normal] capitalize mb-14">
-				Meet Our Host{" "}
+				Congress Host
 			</h2>
 			<div className="speakers-row flex-wrap md:flex-nowrap justify-center md:items-center">
 				{host.map((speaker, i) => (
@@ -54,7 +40,7 @@ function SpeakerCard({ name, photo, title }: SpeakerCardProp) {
 		>
 			<img
 				src={`/${photo}`}
-				alt=""
+				alt={`${name} - ${title}`}
 				width={100}
 				height={100}
 				style={{ minWidth: 100 }}
@@ -62,7 +48,7 @@ function SpeakerCard({ name, photo, title }: SpeakerCardProp) {
 			/>
 			<div className="label font-semibold">
 				<p className="text-lg">{name}</p>
-				<p className="text-[small]">{title}</p>
+				<p className="text-[small] line-clamp-2 hover:line-clamp-6">{title}</p>
 			</div>
 		</div>
 	);
