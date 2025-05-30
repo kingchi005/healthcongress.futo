@@ -5,7 +5,7 @@ export default function Footer() {
 	return (
 		<footer className="bg-neutral-50">
 			<div>
-				<span>SICT'3RD</span>
+				<span>SOHT</span>
 				<div className="footer-links mt-8 md:mt-0">
 					<div>
 						{/* <a href="#!" className="t">Menu</a>  */}
@@ -19,8 +19,8 @@ export default function Footer() {
 					<div>
 						{/* <a href="#!" className="t">Socials</a>  */}
 						<Link to="https://futo.edu.ng/">FUTO</Link>
-						<Link to="https://futo.edu.ng/school-of-information-and-communication-technology-sict/">
-							SICT FUTO
+						<Link to="https://futo.edu.ng/school-of-information-and-communication-technology-soht/">
+							SOHT FUTO
 						</Link>
 						{/* <a href="">Linkedin</a>  */}
 					</div>

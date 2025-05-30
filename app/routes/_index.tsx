@@ -86,30 +86,10 @@ export default function Index() {
 					alt="Congress venue"
 				/>
 			</section> */}
-			<section className="about mb-20 px-5">
-				<h2 className="title text-center md:text-start">
-					Why you should attend
-				</h2>
-				<div className="cards items-start">
-					{about_cards.map(({ text, title, icon }, i) => (
-						<div key={i} className="card mb-10 md:mb-0">
-							<img src={icon} alt="speech bubble with a question" width={80} />
-							<p className="card-title">{title}</p>
-							<p className="text card-text text-center">{text}</p>
-						</div>
-					))}
-				</div>
-			</section>
-
-			<Speakers />
-
 			<section className="flyer px-5">
 				<div style={{ flex: 1 }} className="text-center md:text-start">
-					<h2
-						className="title"
-						style={{ fontSize: 30, marginInline: 0, marginTop: 0 }}
-					>
-						The Congress
+					<h2 className="title text-center md:text-start">
+						The Health Congress
 					</h2>
 					<p className="text md:pe-10 mb-3">
 						In recent times, the burden of disease outbreak in developing
@@ -126,8 +106,10 @@ export default function Index() {
 						indigenous technologies for health promotion and Health Management
 						in Nigeria and other developing countries.
 					</p>
+					<TimeDate />
 				</div>
-				<div style={{ flex: 1, cursor: "pointer" }} className="mt-8 md:mt-0">
+
+				{/* <div style={{ flex: 1, cursor: "pointer" }} className="mt-8 md:mt-0">
 					<a href="/langing_page_images/flyer.png" target="_blank">
 						<img
 							src="/langing_page_images/flyer.png"
@@ -135,8 +117,24 @@ export default function Index() {
 							alt="Congress flyer"
 						/>
 					</a>
+				</div> */}
+			</section>
+			<section className="about mb-20 px-5">
+				<h2 className="title text-center md:text-start">
+					Why you should attend
+				</h2>
+				<div className="cards items-start">
+					{about_cards.map(({ text, title, icon }, i) => (
+						<div key={i} className="card mb-10 md:mb-0">
+							<img src={icon} alt="speech bubble with a question" width={80} />
+							<p className="card-title">{title}</p>
+							<p className="text card-text text-center">{text}</p>
+						</div>
+					))}
 				</div>
 			</section>
+
+			<Speakers />
 
 			<section className="support px-5" style={{ marginTop: 100 }}>
 				<div style={{ flex: 1 }} className="mb-8 md:mb-0">
@@ -168,23 +166,6 @@ export default function Index() {
 				<div
 					style={{ flex: 1, display: "flex", gap: 40, flexDirection: "column" }}
 				>
-					<div>
-						<h2
-							className="title text-center md:text-start"
-							style={{ fontSize: 30, marginTop: 0 }}
-						>
-							Congress Information
-						</h2>
-						<p className="text text-center md:text-start md:pe-10">
-							The 5th international congress on Health Sciences and Technology
-							provides the platform for academics, scientists, policy makers,
-							industrialists and other stakeholders to discuss innovative
-							indigenous technologies for health promotion and Health Management
-							in Nigeria and other developing countries.
-						</p>
-						<TimeDate />
-					</div>
-
 					<div>
 						<h2
 							className="title text-center md:text-start"

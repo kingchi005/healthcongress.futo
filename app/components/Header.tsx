@@ -9,8 +9,8 @@ export default function Header() {
 					to={"/"}
 					className="logo flex flex-row items-center justify-center gap-6"
 				>
-					<img src="/logo.jpg" width={50} alt="logo" />{" "}
-					<span className="font-bold text-neutral-700">SICT</span>
+					<img src="/logo.png" width={40} alt="logo" />{" "}
+					<span className="font-bold text-neutral-700">SOHT</span>
 				</Link>
 				<nav>
 					<Link to={"/"}>Home</Link>
@@ -42,7 +42,7 @@ export default function Header() {
 				<div className="flex justify-between items-center px-4 py-2">
 					<Link to={"/"} className="text-xl font-bold">
 						<span className="logo flex flex-row items-center justify-center gap-6">
-							<img src="/logo.jpg" width={50} alt="logo" />{" "}
+							<img src="/logo.png" width={50} alt="logo" />{" "}
 							<span className="font-bold text-neutral-700">SICT</span>
 						</span>
 					</Link>
