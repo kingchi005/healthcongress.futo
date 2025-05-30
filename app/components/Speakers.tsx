@@ -14,14 +14,14 @@ export default function Speakers() {
 				))}
 			</div>
 			<div className="mb-20"></div>
-			<h2 className="text-[color:var(--dark-blue)] text-4xl text-center font-light leading-[normal] capitalize mb-14">
+			{/* <h2 className="text-[color:var(--dark-blue)] text-4xl text-center font-light leading-[normal] capitalize mb-14">
 				Congress Host
 			</h2>
 			<div className="speakers-row flex-wrap md:flex-nowrap justify-center md:items-center">
 				{host.map((speaker, i) => (
 					<SpeakerCard key={i} {...speaker} />
 				))}
-			</div>
+			</div> */}
 		</div>
 	);
 }

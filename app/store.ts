@@ -60,19 +60,19 @@ export const contacts = [
 
 export const speakers = [
 	{
-		photo: "avatar.png",
+		photo: "prof-emmanuel.jpg",
 		name: "Prof. Emmanuel C. Opara",
 		title:
 			"Professor of Regenerative Medicine, Wake Forest University School of Medicine, Winston-Salem, North Carolina, United States",
 	},
 	{
-		photo: "avatar.png",
+		photo: "prof-nwoko.png",
 		name: "Prof. B. E. B. Nwoke",
 		title:
 			"Professor of Public Health, Parasitology and Entomology, Imo State University, Nigeria",
 	},
 	{
-		photo: "avatar.png",
+		photo: "prof-john.jpeg",
 		name: "Prof. John Emaimo",
 		title:
 			"Professor of Social Work Rector, Federal College of Dental Technology and Therapy, Enugu, Nigeria",
