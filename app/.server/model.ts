@@ -2,7 +2,7 @@ import { Prisma } from "@prisma/client";
 import db from "./prisma.js";
 
 export class User {
-	async save(data: Prisma.ParticipantCreateInput) {
+	public static async save(data: Prisma.ParticipantCreateInput) {
 		return await db.participant.create({ data });
 	}
 

@@ -34,19 +34,7 @@ export const action: ActionFunction = async ({ request }) => {
 			);
 		}
 
-		const user = new User(
-			data.middle_name,
-			data.email,
-			data.first_name,
-			data.last_name,
-			data.role,
-			data.phone_number,
-			data.school,
-			data.department,
-			data.level
-		);
-
-		const created = await user.save();
+		const created = await User.save(data);
 
 		if (!created) {
 			return json(

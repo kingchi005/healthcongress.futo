@@ -20,21 +20,27 @@ export default function Page() {
 	async function onSubmit(ev: React.FormEvent<HTMLFormElement>) {
 		ev.preventDefault();
 		setIsLoading(true);
-		const form = ev.currentTarget;
+		const formData = new FormData(ev.currentTarget);
 
-		const res = await (
-			await fetch("/api/register", {
-				method: "post",
-				body: new FormData(form),
-			})
-		).json();
+		try {
+			const res = await (
+				await fetch("/api/register", {
+					method: "post",
+					body: formData,
+				})
+			).json();
 
-		setIsLoading(false);
-
-		if (!res.ok) return toast.error(res.message, { style: { color: "red" } });
-		toast.success(res.message, { style: { color: "blue" } });
-
-		navigate("/");
+			if (!res.ok) {
+				alert(res.message);
+				return;
+			}
+			alert(res.message);
+			window.location.href = "/";
+		} catch (error) {
+			alert("An error occurred during registration");
+		} finally {
+			setIsLoading(false);
+		}
 	}
 
 	return (
