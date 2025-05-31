@@ -1,14 +1,13 @@
-import pino from "pino";
 import mysql from "mysql2/promise";
 import { configDotenv } from "dotenv";
 configDotenv();
 
-export const Logger = pino({
-	transport: {
-		target: "pino-pretty",
-		options: { translateTime: "SYS:dd-mm-yy hh:mm:ss" },
-	},
-});
+// export const Logger = pino({
+// 	transport: {
+// 		target: "pino-pretty",
+// 		options: { translateTime: "SYS:dd-mm-yy hh:mm:ss" },
+// 	},
+// });
 /* 
 export class AppResponse {
 	public static success<D = unknown>(

@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { Logger } from "./config";
 
 export function sanitizeHtml(html: string) {
 	return html.trim().replaceAll("<", "").replaceAll(">", "");
