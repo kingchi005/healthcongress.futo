@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { Logger } from "./config";
-import { NextFunction } from "express";
 
 export function sanitizeHtml(html: string) {
 	return html.trim().replaceAll("<", "").replaceAll(">", "");
@@ -46,13 +45,3 @@ export const Validation = {
 		level: getStringValidation("level"),
 	}),
 };
-
-export const Handler =
-	(controller: (req: Request, res: Response) => Promise<any>) =>
-	async (req: Request, res: Response, next: NextFunction) => {
-		try {
-			await controller(req, res);
-		} catch (error) {
-			next(error);
-		}
-	};

@@ -29,8 +29,11 @@ function Login() {
 		).json();
 		setIsLoading(false);
 
-		if (!res.ok) return toast.error(res.message, { style: { color: "red" } });
-		toast.success(res.message, { style: { color: "blue" } });
+		if (!res?.ok) return alert(res.message);
+		alert(res.message);
+
+		// if (!res?.ok) return toast.error(res.message, { style: { color: "red" } });
+		// 		toast.success(res.message, { style: { color: "blue" } });
 		authenticateAdmin();
 	}
 	return (

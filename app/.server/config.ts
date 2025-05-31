@@ -63,20 +63,106 @@ export const UserType = {
 } as const;
 
 class DB {
-	private connection!: mysql.Connection;
-	constructor(private url: string) {}
+	private connection: mysql.Connection | null = null;
+	private isConnecting: boolean = false;
+	private connectionPromise: Promise<void> | null = null;
+
+	constructor(private url: string) {
+		if (!url) {
+			throw new Error("Database URL is required");
+		}
+	}
+
+	private async ensureConnection() {
+		if (this.connection) {
+			return;
+		}
+
+		if (this.isConnecting) {
+			await this.connectionPromise;
+			return;
+		}
+
+		this.isConnecting = true;
+		this.connectionPromise = this.connect();
+
+		try {
+			await this.connectionPromise;
+		} finally {
+			this.isConnecting = false;
+			this.connectionPromise = null;
+		}
+	}
 
 	public async connect() {
-		this.connection = await mysql.createConnection(this.url);
+		try {
+			this.connection = await mysql.createConnection(this.url);
+			Logger.info("Database connected successfully");
+		} catch (error) {
+			Logger.error("Database connection error:", error);
+			throw new Error("Failed to connect to database");
+		}
 	}
 
 	public async close() {
-		this.connection.end();
+		if (this.connection) {
+			try {
+				await this.connection.end();
+				this.connection = null;
+				Logger.info("Database connection closed");
+			} catch (error) {
+				Logger.error("Error closing database connection:", error);
+				throw new Error("Failed to close database connection");
+			}
+		}
 	}
 
-	public async query(sql: string, params?: (string | number)[]) {
-		return await this.connection.execute(sql, params);
+	public async query<T = any>(sql: string, params?: (string | number)[]) {
+		try {
+			await this.ensureConnection();
+
+			if (!this.connection) {
+				throw new Error("No database connection available");
+			}
+
+			const [rows] = await this.connection.execute(sql, params);
+			return rows as T;
+		} catch (error) {
+			Logger.error("Database query error:", { sql, params, error });
+			throw new Error("Database query failed");
+		}
+	}
+
+	public async transaction<T>(
+		callback: (connection: mysql.Connection) => Promise<T>
+	): Promise<T> {
+		try {
+			await this.ensureConnection();
+
+			if (!this.connection) {
+				throw new Error("No database connection available");
+			}
+
+			await this.connection.beginTransaction();
+
+			try {
+				const result = await callback(this.connection);
+				await this.connection.commit();
+				return result;
+			} catch (error) {
+				await this.connection.rollback();
+				throw error;
+			}
+		} catch (error) {
+			Logger.error("Transaction error:", error);
+			throw new Error("Transaction failed");
+		}
 	}
 }
 
-export const db = new DB(process.env.DATABASE_STRING!);
+// Validate database URL
+if (!process.env.DATABASE_STRING) {
+	throw new Error("DATABASE_STRING environment variable is required");
+}
+
+export const db = new DB(process.env.DATABASE_STRING);
