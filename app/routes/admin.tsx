@@ -1,8 +1,29 @@
 import { json, useLoaderData, useRouteLoaderData } from "@remix-run/react";
+import type { LoaderFunction } from "@remix-run/node";
 import React from "react";
-import { toast } from "sonner";
 import { User } from "~/.server/model";
 import { useAuth } from "~/store";
+import { db } from "~/.server/config";
+import { Participant } from "@prisma/client";
+
+export const loader: LoaderFunction = async () => {
+	try {
+		const data = await User.findMany();
+		return json({
+			ok: true,
+			message: "Fetched",
+			data,
+		});
+	} catch (error) {
+		return json(
+			{
+				ok: false,
+				message: "Failed to fetch participants",
+			},
+			{ status: 500 }
+		);
+	}
+};
 
 export default function Page() {
 	const authenticated = useAuth((st) => st.authed);
@@ -21,21 +42,28 @@ function Login() {
 		setIsLoading(true);
 		const formData = new FormData(ev.currentTarget);
 
-		const res = await (
-			await fetch("/api/login", {
-				method: "post",
-				body: formData,
-			})
-		).json();
-		setIsLoading(false);
+		try {
+			const res = await (
+				await fetch("/api/login", {
+					method: "post",
+					body: formData,
+				})
+			).json();
 
-		if (!res?.ok) return alert(res.message);
-		alert(res.message);
+			if (!res?.ok) {
+				alert(res.message);
+				return;
+			}
 
-		// if (!res?.ok) return toast.error(res.message, { style: { color: "red" } });
-		// 		toast.success(res.message, { style: { color: "blue" } });
-		authenticateAdmin();
+			alert(res.message);
+			authenticateAdmin();
+		} catch (error) {
+			alert("An error occurred during login");
+		} finally {
+			setIsLoading(false);
+		}
 	}
+
 	return (
 		<main>
 			<div className="reg-wrapper">
@@ -84,88 +112,184 @@ function Login() {
 
 function Participants() {
 	const logout = useAuth((st) => st.logout);
-	const [isLoading, setIsLoading] = React.useState(true);
-	const [rows, setRows] = React.useState<User[]>([]);
+	const { data: initialData } = useLoaderData<{ data: Participant[] }>();
+	const [searchTerm, setSearchTerm] = React.useState("");
+	const [sortConfig, setSortConfig] = React.useState<{
+		key: keyof Participant;
+		direction: "asc" | "desc";
+	} | null>(null);
 
-	React.useEffect(() => {
-		fetchParticipants();
-		async function fetchParticipants() {
-			// setIsLoading(true);
-			const res = await (await fetch("/api/participant")).json();
-			// setIsLoading(false);
-			if (!res.ok) return toast.error(res.message, { style: { color: "red" } });
+	const filteredRows = React.useMemo(() => {
+		return initialData.filter((row) =>
+			Object.values(row).some((value) =>
+				String(value).toLowerCase().includes(searchTerm.toLowerCase())
+			)
+		);
+	}, [initialData, searchTerm]);
 
-			// toast.success(res.message, { style: { color: "green" } });
-			setRows(res.data);
-		}
-	}, []);
+	const sortedRows = React.useMemo(() => {
+		if (!sortConfig) return filteredRows;
+
+		return [...filteredRows].sort((a, b) => {
+			if (a[sortConfig.key] < b[sortConfig.key]) {
+				return sortConfig.direction === "asc" ? -1 : 1;
+			}
+			if (a[sortConfig.key] > b[sortConfig.key]) {
+				return sortConfig.direction === "asc" ? 1 : -1;
+			}
+			return 0;
+		});
+	}, [filteredRows, sortConfig]);
+
+	function requestSort(key: keyof Participant) {
+		setSortConfig((current) => ({
+			key,
+			direction:
+				current?.key === key && current.direction === "asc" ? "desc" : "asc",
+		}));
+	}
 
 	return (
-		<main>
-			<h2 className="title" style={{ marginBottom: 30 }}>
-				Participants
-			</h2>
-			<div style={{ display: "flex", justifyContent: "end" }}>
-				<button
-					id="logout-btn"
-					onClick={logout}
-					className="primary-btn text-xs"
-				>
-					Logout
-				</button>
-			</div>
-			<div className="overflow-x-auto mt-5 border border-neutral-400/50 rounded-lg ">
-				<table className="table text-xs">
-					<thead>
-						<tr>
-							<th>Id</th>
-							<th>Email</th>
-							<th>First Name</th>
-							<th>Middle Name</th>
-							<th>Last Name</th>
-							<th>Role</th>
-							<th>Phone Number</th>
-							<th>School</th>
-							<th>Department</th>
-							<th>Level</th>
-							<th>Date</th>
-						</tr>
-					</thead>
-					<tbody>
-						{rows.map((row, i) => (
-							<tr key={i}>
-								<td>{i + 1}</td>
-								<td>{row.email}</td>
-								<td>{row.first_name}</td>
-								<td>{row.middle_name}</td>
-								<td>{row.last_name}</td>
-								<td>{row.role}</td>
-								<td>{row.phone_number}</td>
-								<td>{row.school}</td>
-								<td>{row.department}</td>
-								<td>{row.level}</td>
-								<td>{new Date(row.created_at).toLocaleDateString()}</td>
-							</tr>
-						))}
-					</tbody>
-				</table>
+		<main className="p-6">
+			<div className="flex justify-between items-center mb-8">
+				<h2 className="text-2xl font-semibold text-gray-800">Participants</h2>
+				<div className="flex gap-4">
+					<div className="relative">
+						<input
+							type="text"
+							placeholder="Search participants..."
+							value={searchTerm}
+							onChange={(e) => setSearchTerm(e.target.value)}
+							className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+						/>
+						<svg
+							className="absolute right-3 top-2.5 h-5 w-5 text-gray-400"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeWidth={2}
+								d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+							/>
+						</svg>
+					</div>
+					<button
+						onClick={logout}
+						className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+					>
+						Logout
+					</button>
+				</div>
 			</div>
 
-			<div className="flex justify-end mt-10">
+			<div className="bg-white rounded-lg shadow-lg overflow-hidden">
+				<div className="overflow-x-auto">
+					<table className="min-w-full divide-y divide-gray-200">
+						<thead className="bg-gray-50">
+							<tr>
+								{[
+									"Id",
+									"Email",
+									"First Name",
+									"Middle Name",
+									"Last Name",
+									"Role",
+									"Phone Number",
+									"School",
+									"Department",
+									"Level",
+									"Date",
+								].map((header) => (
+									<th
+										key={header}
+										className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+										onClick={() =>
+											requestSort(header.toLowerCase() as keyof Participant)
+										}
+									>
+										<div className="flex items-center gap-2">
+											{header}
+											{sortConfig?.key === header.toLowerCase() && (
+												<span>
+													{sortConfig.direction === "asc" ? "↑" : "↓"}
+												</span>
+											)}
+										</div>
+									</th>
+								))}
+							</tr>
+						</thead>
+						<tbody className="bg-white divide-y divide-gray-200">
+							{sortedRows.length === 0 ? (
+								<tr>
+									<td
+										colSpan={11}
+										className="px-6 py-4 text-center text-gray-500"
+									>
+										No participants found
+									</td>
+								</tr>
+							) : (
+								sortedRows.map((row, i) => (
+									<tr key={i} className="hover:bg-gray-50">
+										<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+											{i + 1}
+										</td>
+										<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+											{row.email}
+										</td>
+										<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+											{row.first_name}
+										</td>
+										<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+											{row.middle_name}
+										</td>
+										<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+											{row.last_name}
+										</td>
+										<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+											{row.role}
+										</td>
+										<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+											{row.phone_number}
+										</td>
+										<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+											{row.school}
+										</td>
+										<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+											{row.department}
+										</td>
+										<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+											{row.level}
+										</td>
+										<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+											{new Date(row.created_at).toLocaleDateString()}
+										</td>
+									</tr>
+								))
+							)}
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div className="flex justify-end mt-6">
 				<a
 					download
-					href="/download/participant"
-					id="export-btn"
-					className="primary-btn flex items-center gap-5 text-sm"
+					href="/api/participants/download"
+					className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
 				>
-					Export to spreadsheet{" "}
+					<span className="mr-2">Export to spreadsheet</span>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						fill="none"
 						viewBox="0 0 24 24"
-						strokeWidth="2.5"
+						strokeWidth={2}
 						stroke="currentColor"
-						className="w-6 h-6 icon font-bold"
+						className="w-5 h-5"
 					>
 						<path
 							strokeLinecap="round"
