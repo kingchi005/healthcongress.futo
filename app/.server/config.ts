@@ -97,9 +97,9 @@ class DB {
 	public async connect() {
 		try {
 			this.connection = await mysql.createConnection(this.url);
-			Logger.info("Database connected successfully");
+			console.log("Database connected successfully");
 		} catch (error) {
-			Logger.error("Database connection error:", error);
+			console.error("Database connection error:", error);
 			throw new Error("Failed to connect to database");
 		}
 	}
@@ -109,9 +109,9 @@ class DB {
 			try {
 				await this.connection.end();
 				this.connection = null;
-				Logger.info("Database connection closed");
+				console.log("Database connection closed");
 			} catch (error) {
-				Logger.error("Error closing database connection:", error);
+				console.error("Error closing database connection:", error);
 				throw new Error("Failed to close database connection");
 			}
 		}
@@ -128,7 +128,7 @@ class DB {
 			const [rows] = await this.connection.execute(sql, params);
 			return rows as T;
 		} catch (error) {
-			Logger.error("Database query error:", { sql, params, error });
+			console.error("Database query error:", { sql, params, error });
 			throw new Error("Database query failed");
 		}
 	}
@@ -154,7 +154,7 @@ class DB {
 				throw error;
 			}
 		} catch (error) {
-			Logger.error("Transaction error:", error);
+			console.error("Transaction error:", error);
 			throw new Error("Transaction failed");
 		}
 	}
@@ -166,3 +166,47 @@ if (!process.env.DATABASE_STRING) {
 }
 
 export const db = new DB(process.env.DATABASE_STRING);
+
+// Database connection
+export async function connect() {
+	try {
+		await db.connect();
+		console.log("Database connected successfully");
+	} catch (error) {
+		console.error("Database connection error:", error);
+		throw error;
+	}
+}
+
+// Close database connection
+export async function disconnect() {
+	try {
+		await db.close();
+		console.log("Database connection closed");
+	} catch (error) {
+		console.error("Error closing database connection:", error);
+		throw error;
+	}
+}
+
+// Execute query with error logging
+export async function executeQuery<T>(sql: string, params: any[]): Promise<T> {
+	try {
+		return await db.query<T>(sql, params);
+	} catch (error) {
+		console.error("Database query error:", { sql, params, error });
+		throw error;
+	}
+}
+
+// Execute transaction with error logging
+export async function executeTransaction<T>(
+	callback: (tx: any) => Promise<T>
+): Promise<T> {
+	try {
+		return await db.transaction<T>(callback);
+	} catch (error) {
+		console.error("Transaction error:", error);
+		throw error;
+	}
+}
