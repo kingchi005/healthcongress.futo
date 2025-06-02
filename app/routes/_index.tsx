@@ -9,8 +9,8 @@ import TimeDate from "~/components/TimeDate";
 
 export const meta: MetaFunction = () => {
 	return [
-		{ title: "SICT'3RD SYMPOSIUM" },
-		{ name: "description", content: "Welcome to Remix!" },
+		{ title: "SOHT Health Congress" },
+		{ name: "description", content: "5th International Congress on Health Sciences and Technology" },
 	];
 };
 
@@ -20,7 +20,7 @@ export default function Index() {
 	return (
 		<div className="items-center justify-center">
 			<section
-				className="mt-0 pb-10 relative min-h-[80vh] flex items-center justify-center bg-cover bg-center bg-no-repeat"
+				className="mt-0 py-10 relative min-h-[80vh] flex items-center justify-center bg-cover bg-center bg-no-repeat"
 				style={{
 					backgroundImage:
 						"linear-gradient(180deg,rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url('/hero-image.jpg')",
