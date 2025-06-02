@@ -43,7 +43,7 @@ export default function Header() {
 					<Link to={"/"} className="text-xl font-bold">
 						<span className="logo flex flex-row items-center justify-center gap-6">
 							<img src="/logo.png" width={50} alt="logo" />{" "}
-							<span className="font-bold text-neutral-700">SICT</span>
+							<span className="font-bold text-neutral-700">SOHT</span>
 						</span>
 					</Link>
 					<span className="flex flex-row justify-between items-center gap-8">

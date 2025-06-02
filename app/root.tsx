@@ -38,7 +38,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 			<body className="bg-blue-900/20">
 				<Header />
 				<ClientComponent>
-					<Toaster position="top-right" />
+					{/* <Toaster position="top-right" /> */}
 					<main className="bg-neutral-50 p-0">{children}</main>
 				</ClientComponent>
 				<Footer />
