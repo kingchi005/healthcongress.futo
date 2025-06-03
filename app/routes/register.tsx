@@ -4,15 +4,7 @@ import { toast } from "sonner";
 import Time from "../components/Time";
 import TimeDate from "~/components/TimeDate";
 
-const FACULTY = {
-	SICT: ["IFT", "CSC", "CYB", "SOE"],
-	// SAAT: ["FWT", "AEC", "AEX", "ANT", "CST", "FAT", "SST"],
-	// SESET: ["CME", "EPE", "ELE", "MCE", "TCE", "EEE"],
-	OTHERS: ["others"],
-};
-
 export default function Page() {
-	const [departments, setDepartments] = React.useState([]);
 	const [isLoading, setIsLoading] = React.useState(false);
 
 	const navigate = useNavigate();
@@ -107,38 +99,21 @@ export default function Page() {
 								))}
 							</select>
 						</div>
-						<select
+						<input
 							style={{ marginBottom: 10 }}
 							name="school"
-							id="faculty-sel"
+							type="text"
+							placeholder="School"
 							required
-							//@ts-expect-error
-							onChange={(ev) => setDepartments(FACULTY[ev.currentTarget.value])}
-						>
-							<option value="" disabled selected>
-								School
-							</option>
-							{Object.keys(FACULTY).map((value) => (
-								<option value={value} key={value}>
-									{value}
-								</option>
-							))}
-						</select>
-						<select
+						/>
+
+						<input
 							style={{ marginBottom: 10 }}
 							name="department"
-							id="dept-sel"
+							type="text"
+							placeholder="Department"
 							required
-						>
-							<option value="" disabled selected>
-								Department
-							</option>
-							{departments.map((value) => (
-								<option value={value} key={value}>
-									{value}
-								</option>
-							))}
-						</select>
+						/>
 						<select
 							style={{ marginBottom: 10 }}
 							name="level"
